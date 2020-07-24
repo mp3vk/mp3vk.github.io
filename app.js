@@ -1,17 +1,18 @@
 $(document).ready(function() {
 	
-	try {
-		url = 'https://api.vk.com/method/users.get?v=5.52&access_token='+document.cookie;
-		$.ajax({
-			url: url,
-			dataType: "jsonp",
-			success: function (data) {
+	url = 'https://api.vk.com/method/users.get?v=5.52&access_token='+document.cookie;
+	$.ajax({
+		url: url,
+		dataType: "jsonp",
+		success: function (data) {
+			try {
 				console.log(data.response[0])
+			} catch(error) {
+				console.log(error)
 			}
-		});
-	} catch(error) {
-		console.log(error)
-	}
+		}
+	});
+
 
 	$('#save-token').click(function() {
 		var access_token = $('#access-token').val();
@@ -21,6 +22,23 @@ $(document).ready(function() {
 		}
 		console.log(access_token);
 		document.cookie = access_token;
-	})
+		alert('access_token установлен');
+		$('#access-token').val('')
+	});
+
+	$('#make-request').click(function() {
+	url = 'https://api.vk.com/method/audio.get?v=5.52&access_token='+document.cookie;
+	$.ajax({
+		url: url,
+		dataType: "jsonp",
+		success: function (data) {
+			try {
+				console.log(data.response)
+			} catch(error) {
+				console.log(error)
+			}
+		}
+	});
+	});
 
 });
