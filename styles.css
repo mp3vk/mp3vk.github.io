@@ -1,0 +1,60 @@
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+button {
+	background-color: #2d497d;
+	color: #fff;
+	border: none;
+}
+button:focus {
+	outline: none;
+}
+button:hover {
+	opacity: 0.8;
+}
+.relogin {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+.vk-login {
+	width: 100%;
+	font-size: 3em;
+}
+.topline {
+	margin-top: 10%;
+	background-color: #ccccd6;
+}
+footer {
+	margin-top: auto;
+	text-align: center
+}
+.footer {
+	height: 20vh;
+    background-color: #ccccd6;
+    width: 100%;
+    text-align: left;
+    vertical-align: center;
+    display: table;
+}
+.footer * {
+	display: table-cell;
+	vertical-align: middle;
+}
+.contact-me {
+	min-width: 45%;
+	line-height: 3;
+	margin-bottom: 5%;
+}
+@media screen and (max-width: 992px) {
+  .relogin {
+    padding-bottom: 5%;
+  }
+  .topline {
+  	background-color: unset;
+  }
+}
