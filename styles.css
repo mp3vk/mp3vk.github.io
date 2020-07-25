@@ -63,3 +63,19 @@ footer {
   	background-color: unset;
   }
 }
+.save-token {
+	width: 100%;
+}
+#save-token {
+	margin-top: 5%;
+}
+#make-request {
+	margin: 5%;
+}
+.name {
+	margin-top: 5%;
+	display: none;
+}
+.audios {
+	display: none;
+}
