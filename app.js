@@ -28,9 +28,25 @@ $(document).ready(function() {
 
 	$('#make-request').click(function() {
 	url = 'https://api.vk.com/method/audio.get?v=5.52&access_token='+document.cookie;
+	// fetch(url, {
+	// 	credentials: 'include',
+	// 	method: 'GET',
+	// 	mode: 'no-cors',
+	// 	headers: new Headers(
+	// 		{"Content-Type": "text/plain"}
+	// 	),
+	// }).then((response) => {
+	// 	console.log(response)
+	// 	return response.json();
+	// }).then((data) => {
+	// 	console.log(data);
+	// });
 	$.ajax({
 		url: url,
 		dataType: "jsonp",
+		headers: {
+			"user-agent":"vk"
+		},
 		success: function (data) {
 			try {
 				console.log(data.response)
