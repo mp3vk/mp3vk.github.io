@@ -7,8 +7,8 @@ body {
 	background-color: #ddd;
 	font-size: 1em;
 }
-hr {
-	border-color: #ddd;
+hr.audio-bottom {
+	border-color: #000;
 }
 .icon {
 	display: none !important;
@@ -171,9 +171,6 @@ p {
     background-position: center;
     color: #fff;
 }
-.play i {
-	padding-left: 0.15rem;
-}
 .download i {
 	padding-bottom: 0.15rem;
 }
@@ -208,6 +205,39 @@ p {
 }
 .title-and-artist {
 	overflow: hidden;
+}
+.play i.play {
+	display: block;
+	padding-left: 0.15rem;
+}
+.play i.pause {
+	display: none;
+}
+.playing i.play {
+	display: none;
+}
+.playing i.pause {
+	display: block;
+}
+.play i.loading {
+	display: none;
+}
+.loading-button i.loading {
+	display: block;
+	position: absolute;
+	font-size: 2em;
+	animation-name: spin;
+	animation-duration: 1500ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear; 
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
 }
 @media screen and (max-width: 992px) {
   .relogin {
