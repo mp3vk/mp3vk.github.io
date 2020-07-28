@@ -1,5 +1,6 @@
 var sound = null;
 var playing = null;
+var list_audio = [];
 $(document).ready(function() {
 	check_if_logged();
 
@@ -16,10 +17,26 @@ $(document).ready(function() {
 		$('#save-token').trigger("reset");;
 		check_if_logged();
 	});
-	$('#order-checkbox').change(function() {
-		load_audios(reverse = $('#order-checkbox').is(':checked'));
-	})
+	$('#order-checkbox').change(sort)
+	$('#sort-by').change(sort)
 });
+
+
+function sort() {
+	const reverse = $('#order-checkbox').is(':checked')
+	const sort_type = $('#sort-by').val();
+	var items = list_audio.slice(0);
+	if (sort_type == "default") {
+		write_audios(items, reverse);
+	} else {
+		var sort_attribute = sort_type;
+		items.sort(function(a, b) {
+				return (a[sort_attribute] < b[sort_attribute]) ? -1 : (a[sort_attribute] > b[sort_attribute]) ? 1 : 0;
+			});
+		write_audios(items, reverse);
+	}
+}
+
 
 function check_if_logged() {
 	const access_token = document.cookie;
@@ -45,8 +62,7 @@ function check_if_logged() {
 }
 
 
-function load_audios(reverse = false) {
-console.log(reverse);
+function load_audios() {
 const access_token = document.cookie;
 const url = 'https://api.vk.com/method/audio.get?v=5.90&access_token=' + access_token;
 $.ajax({
@@ -54,31 +70,36 @@ $.ajax({
 	dataType: "jsonp",
 	success: function (data) {
 		try {
-			const count = data.response.count;
+			var count = data.response.count;
 			var items = data.response.items;
+			list_audio = items;
 		} catch(error) {
 			console.log(error)
 			return;
 		}
-
-		$('.audios').show().find('.container').empty();
-		var counter = 0;
-		if (reverse) {items.reverse();}
-		items.forEach(function(audio) {
-			counter += 1;
-			var audio = $(render_audio(counter, audio))
-			$('.audios .container').append(audio);
-			audio.find('.download').click(function() {
-				const filename = audio.find('.title').text();
-				const url = $(audio).attr('data-url');
-				saveAs(url, filename + '.mp3');
-			})
-			audio.find('.play').click(function() {
-				click_play($(audio).attr('data-url'), this);
-			})
-		})
+		$('.count').text(count);
+		write_audios(items, false);
 	}
 });
+}
+
+function write_audios(items, reverse) {
+	$('.audios').show().find('.container').empty();
+	var counter = 0;
+	if (reverse) {items.reverse();}
+	items.forEach(function(audio) {
+		counter += 1;
+		var audio = $(render_audio(counter, audio))
+		$('.audios .container').append(audio);
+		audio.find('.download').click(function() {
+			const filename = audio.find('.title').text();
+			const url = $(audio).attr('data-url');
+			saveAs(url, filename + '.mp3');
+		})
+		audio.find('.play').click(function() {
+			click_play($(audio).attr('data-url'), this);
+		})
+	})
 }
 
 function time_like_vk(seconds) {
