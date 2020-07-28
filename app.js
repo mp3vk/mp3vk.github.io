@@ -19,6 +19,17 @@ $(document).ready(function() {
 	});
 	$('#order-checkbox').change(sort)
 	$('#sort-by').change(sort)
+	$('#search').submit(function(e) {
+		e.preventDefault();
+		var quest = $('.search-line').val().toLowerCase();
+		console.log(quest);
+		var items = list_audio.slice(0).
+		filter(function(audio) {
+			
+			return audio.title.toLowerCase().includes(quest) || audio.artist.toLowerCase().includes(quest);
+		})
+		write_audios(items, false);
+	})
 });
 
 
