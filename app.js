@@ -94,6 +94,10 @@ function write_audios(items, reverse) {
 		audio.find('.download').click(function() {
 			const filename = audio.find('.title').text();
 			const url = $(audio).attr('data-url');
+			if (!url) {
+				alert('Аудиозапись недоступна. Установите расширение, меняющее user-agent, и измените его на "vk".');
+				return;
+			}
 			saveAs(url, filename + '.mp3');
 		})
 		audio.find('.play').click(function() {
