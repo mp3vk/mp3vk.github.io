@@ -1,17 +1,38 @@
 body {
+	 --accent: #2d497d;
+
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
+	background-color: #ddd;
+	font-size: 1em;
+}
+hr {
+	border-color: #ddd;
+}
+.icon {
+	display: none !important;
 }
 button, .button {
-	background-color: #2d497d;
+	background-color: var(--accent);
 	color: #fff;
 	border: none;
+	font-size: 1.5em;
+	text-transform: lowercase;
+	padding-bottom: 0.3em;
 }
-a.button {
+.button {
 	display: block;
-    text-align: center;
-    color: #fff;
+	width: 100%;
+	text-align: center;
+}
+.button:hover {
+	color: #fff;
+	text-decoration: none;
+}
+.login {
+	text-transform: uppercase;
+	padding-bottom: 0;
 }
 button:focus {
 	outline: none;
@@ -28,19 +49,18 @@ button:hover, .button:hover {
 }
 .vk-login {
 	width: 100%;
-	font-size: 3em;
 }
 .topline {
-	margin-top: 10%;
-	background-color: #ccccd6;
+	margin-top: 3em;
+	margin-bottom: 2.5em;
 }
 footer {
 	margin-top: auto;
-	text-align: center
+	text-align: center;
+	color: #fff;
 }
 .footer {
 	height: 20vh;
-    background-color: #ccccd6;
     width: 100%;
     text-align: left;
     vertical-align: center;
@@ -51,31 +71,161 @@ footer {
 	vertical-align: middle;
 }
 .contact-me {
-	min-width: 45%;
-	line-height: 3;
+	white-space: nowrap;
+    min-width: 10rem;
+	width: 40%;
 	margin-bottom: 5%;
 }
-@media screen and (max-width: 992px) {
-  .relogin {
-    padding-bottom: 5%;
-  }
-  .topline {
-  	background-color: unset;
-  }
-}
+
+
 .save-token {
 	width: 100%;
 }
 #save-token {
-	margin-top: 5%;
+	margin-bottom: 5em;
 }
-#make-request {
-	margin: 5%;
+#access-token {
+	padding: 0;
+    border: 0;
+    height: 100%;
+    outline: none !important;
+}
+p {
+	margin-left: 0.3em;
+    margin-right: 0.3em;
+    text-align: justify;
+}
+.name-and-count {
+	margin-top: 3em;
+	margin-bottom: 3em;
 }
 .name {
-	margin-top: 5%;
+	white-space: nowrap;
+	margin-bottom: 1rem;
+}
+.count {
+	display: flex;
+	align-items: flex-end;
+    justify-content: flex-end;
+	height: 100%;
+	width: 100%;
+}
+.logged-in, .not-logged-in {
 	display: none;
 }
+.search-line, .search-button {
+	height: 100%;
+	width: 100%;
+}
+.search-line {
+	border: 0;
+	padding: 0;
+	outline: none !important;
+}
 .audios {
+	background-color: #fff;
+	padding-top: 1rem;
+}
+.sorting {
+	margin: 0.7em 0 0.4em;
+	text-align: end;
+}
+#order {
+	background-color: #fff;
+	padding: 0.1em 0.5em;
+	width: 6.7rem;
+    text-align: start
+}
+#order .decrease {
 	display: none;
+}
+#order-checkbox {
+	display: none;
+}
+#order-checkbox:checked + #order .increase {
+    display: none;
+}
+#order-checkbox:checked + #order .decrease {
+    display: inline-block;
+}
+#sort-by {
+	appearance: none;
+	outline: none !important;
+    border: 0;
+    padding: 0.1em 0.5em;
+}
+.text-order {
+	margin-left: 1rem;
+}
+.circle-button {
+	padding: 0;
+    height: 2em;
+    width: 2em;
+    min-width: 2em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    margin-left: 2vw;
+    background-position: center;
+    color: #fff;
+}
+.play i {
+	padding-left: 0.15rem;
+}
+.download i {
+	padding-bottom: 0.15rem;
+}
+.blocked i {
+	padding-bottom: 0;
+}
+.download {
+	margin-right: 0;
+}
+.play {
+	margin-left: 0;
+}
+.audio {
+	display: flex;
+	align-items: center;
+}
+.number {
+	font-size: 1.5em;
+}
+.duration {
+	margin-left: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.title, .artist {
+	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
+.artist {
+	opacity: 0.7;
+}
+.title-and-artist {
+	overflow: hidden;
+}
+@media screen and (max-width: 992px) {
+  .relogin {
+    padding-bottom: 1.2em;
+  }
+  .relogin h3 {
+	font-size: 6vw;
+  }
+  .word {
+  	display: none;
+  }
+  .icon {
+  	display: inline-block !important;
+  }
+  button, .button {
+  	padding-bottom: 0;
+  }
+  #order {
+  	width: unset;
+  }
 }

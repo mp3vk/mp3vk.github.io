@@ -1,28 +1,76 @@
 <!doctype html>
 <html>
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mp3vk</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 <link rel="stylesheet" href="styles.css">
+<script src="https://kit.fontawesome.com/b4f2890116.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
+<div class="logged-in">
 <div class="container">
-<h3 class="name"></h3>
+<div class="name-and-count">
+<div class="row">
+	<div class="col">
+		<h3 class="name"></h3>
+	</div>
+	<div class="col-2">
+		<div class="count">255</div>
+	</div>
 </div>
+</div>
+<form id="search">
+<div class="row no-gutters">
+	<div class="col">
+	<input class="search-line" type="text" />
+	</div><div class="col-2 col-sm-1">
+	<button class="search-button" type="submit"><span class="icon"><i class="fas fa-search"></i></span><span class="word">Поиск</span></button>
+	</div>
+</div>
+</form>
+<div class="sorting">
+	<span class="align-top"><span class="word">Сортировать </span>по</span>
+<select name="filter" id="sort-by" class="align-top">
+	<option value="default">умолчанию</option>
+	<option value="name">имени</option>
+	<option value="duration">длительности</option>
+</select>
+<span class="align-top text-order word">в порядке</span>
+<input type="checkbox" id="order-checkbox">
+<label for="order-checkbox" id="order">
+	<span class="increase">
+	<span class="fas icon"><i class="fas fa-caret-down"></i></span>
+	<span class="word">возрастания</span>
+	</span>
+	<span class="decrease">
+	<span class="fas icon"><i class="fas fa-caret-up"></i></span>
+	<span class="word">убывания</span>
+	</span>
+</label>
+</div>
+</div>
+<div class="audios">
+<div class="container">
+
+</div>
+</div>
+</div>
+<div class="not-logged-in">
 <div class="topline">
 <div class="container">
-<div class="row">
+<div class="row no-gutters">
 	<div class="col-lg">
 		<div class="relogin">
-			<h3>{{username}}, перелогиньтесь</h3>
+			<h3>Залогиньтесь, пожалуйста</h3>
 		</div>
 	</div>
-	<div class="col">
-		<a href="https://oauth.vk.com/authorize?client_id=6146827&scope=8&redirect_uri=https://oauth.vk.com/blank.html&display=page&response_type=token&revoke=1" target="_blank" class="button vk-login">VK</a>
+	<div class="col-lg">
+		<a class="button login" href="https://oauth.vk.com/authorize?client_id=6146827&scope=8&redirect_uri=https://oauth.vk.com/blank.html&display=page&response_type=token&revoke=1" target="_blank" class="button vk-login">VK</a>
 	</div>
 	
 	
@@ -32,33 +80,35 @@
 
 <div class="container">
 <form id="save-token">
-<div class="row">
+<p>После разрешения доступа скопируйте url из адресной строки в это поле.
+Эти данные сохраняются только в вашем браузере.</p>
+<div class="row no-gutters">
 	<div class="col-lg">
 	<input class="save-token" id="access-token" type="text" />
-	</div><div class="col">
+	</div><div class="col-lg-4">
 	<button class="save-token" type="submit">Сохранить</button>
 	</div>
 </div>
 </form>
-
 </div>
-<button id="make-request">Сделать запрос</button>
-<div class="audios"></div>
-
+</div>
 
 <footer>
-	<button class="contact-me">Связаться с автором</button>
+	<div class="container">
+	<button class="contact-me">Напиши мне</button>
 	<div class="footer">
 		<div class="container">
 		<p>Неизвестно: что здесь писать?</p>
 		</div>
 	</div>
-
+	</div>
 </footer>
 </body>
+
 <!-- JS, Popper.js, and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="/FileSaver.min.js" crossorigin="anonimous"></script>
 <script src="app.js"></script>
 </html>
