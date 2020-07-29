@@ -1,3 +1,4 @@
+const start_count = 20;
 var sound = null;
 var playing = null;
 var list_audio = [];
@@ -51,68 +52,102 @@ function sort() {
 
 function check_if_logged() {
 	const access_token = document.cookie;
-	const url = 'https://api.vk.com/method/users.get?v=5.90&access_token=' + access_token;
-	$.ajax({
-		url: url,
-		dataType: "jsonp",
-		success: function (data) {
-			try {
-				response = data.response[0];
-			} catch(error) {
-				console.log(error);
-				$('.not-logged-in').show();
-				return;
-			}
+	load_more_and_write(access_token, start_count, 0, function(count) {
+		if (count == 0) {
+			$('.logged-in').hide();
+			$('.not-logged-in').show();
+		} else {
 			$('.not-logged-in').hide();
-			$('.name').html(response.first_name + ' ' + response.last_name);
+			$('.count').text(count);
 			$('.logged-in').show();
-
 			load_audios();
 		}
-	});
+	}, need_user=1);
+}
+
+function push_list_audio(items) {
+	console.log(items);
+	for (var i = items.length - 1; i >= 0; i--) {
+		items[i].thumb = (items[i].album && items[i].album.thumb) ? items[i].album.thumb.photo_68 : '';
+		delete items[i].album;
+		delete items[i].ads;
+		delete items[i].main_artists;
+	}
+	list_audio.push.apply(list_audio, items);
 }
 
 
-function load_audios() {
-const access_token = document.cookie;
-const url = 'https://api.vk.com/method/audio.get?v=5.90&access_token=' + access_token;
+function load_more_and_write(access_token, count, offset, callback = function(argument) {}, need_user = 0) {
+var url = 'https://api.vk.com/method/audio.get?need_user=' + need_user + '&count=' + count + '&offset=' + offset + '&v=5.90&access_token=' + access_token;
 $.ajax({
 	url: url,
 	dataType: "jsonp",
 	success: function (data) {
 		try {
-			var count = data.response.count;
+			var audio_count = data.response.count;
 			var items = data.response.items;
-			list_audio = items;
+			if (need_user == 1) {
+				$('.name').text(items[0].name);
+				items.shift();
+			}
+			push_list_audio(items);
 		} catch(error) {
 			console.log(error)
-			return;
+			callback(0);
 		}
-		$('.count').text(count);
-		write_audios(items, false);
+		write_audios(list_audio.slice(0), false);
+		callback(audio_count);
 	}
 });
 }
 
+
+function load_audios() {
+const access_token = document.cookie;
+var next_count = start_count;
+var offset = start_count;
+
+function recursive_load(count) {
+	if (offset < count) {
+		next_count *= start_count;
+		load_more_and_write(access_token, next_count, offset, recursive_load);
+		offset += next_count;	
+	}
+}
+recursive_load($('.count').text())
+
+}
+
+
 function write_audios(items, reverse) {
 	$('.audios').show().find('.container').empty();
-	var counter = 0;
 	if (reverse) {items.reverse();}
+	var elements = '';
+
 	items.forEach(function(audio) {
-		counter += 1;
-		var audio = $(render_audio(counter, audio))
-		$('.audios .container').append(audio);
-		audio.find('.download').click(function() {
+		var audio = render_audio(audio)
+		elements += audio;
+		
+	})
+	document.querySelector('.audios .container').insertAdjacentHTML("afterBegin", elements);
+	document.querySelectorAll('.audios .audio').forEach(function(audio) {
+		var play_button = audio.querySelector('button.play');
+		play_button.addEventListener('click', function() {
+			const id = $(audio).attr('data-id');
+			const url = list_audio.find(x => x.id == id).url;
+			click_play(url, play_button);
+		})
+		var download_button = audio.querySelector('button.download');
+		download_button.addEventListener('click', function() {
+			audio = $(audio);
 			const filename = audio.find('.title').text();
-			const url = $(audio).attr('data-url');
+			const id = audio.attr('data-id');
+			const url = list_audio.find(x => x.id == id).url;
 			if (!url) {
 				alert('Аудиозапись недоступна. Установите расширение, меняющее user-agent, и измените его на "vk".');
 				return;
 			}
 			saveAs(url, filename + '.mp3');
-		})
-		audio.find('.play').click(function() {
-			click_play($(audio).attr('data-url'), this);
 		})
 	})
 }
@@ -139,11 +174,7 @@ function time_like_vk(seconds) {
 	return times.reverse().join(':')
 }
 
-function render_audio(number, audio){
-var thumb = '';
-if (audio.album && audio.album.thumb) {
-	thumb = audio.album.thumb.photo_68;
-}
+function render_audio(audio){
 var right_button = '';
 if (audio.url) {
 	right_button = '\
@@ -156,9 +187,8 @@ if (audio.url) {
 		<i class="fas fa-times"></i> \
 	</button>'
 }
-return '<div class="audio" data-url="' + audio.url + '"> \
-	'//  <span class="number align-middle">' + number + '</span> \
-	+ '<button class="play circle-button" style="background-image: url(' + thumb + ')"> \
+return '<div class="audio" data-id="' + audio.id + '"> \
+	<button class="play circle-button" style="background-image: url(' + audio.thumb + ')"> \
 		<i class="fas fa-spinner loading"></i> \
 		<i class="fas fa-play play"></i> \
 		<i class="fas fa-pause pause"></i> \
