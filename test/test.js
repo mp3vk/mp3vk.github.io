@@ -7,8 +7,7 @@ describe("get data from vk", function() {
 		assert.typeOf(data.items, 'array');
 		assert.typeOf(data.asdf, 'undefined');
 		assert.isNotEmpty(data.items);
-		for (item in data.items) {
-			console.log(item)
+		data.items.forEach(function (item) {
 			assert.typeOf(item.title, 'string');
 			assert.typeOf(item.artist, 'string');
 			assert.typeOf(item.thumb, 'string');
