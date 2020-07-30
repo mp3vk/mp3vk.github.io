@@ -22,7 +22,9 @@ describe("get data from vk", function() {
 		var all_audios = await get_vk_data(vk_access_token);
 		var slice_audios = await get_vk_data(vk_access_token, count = 10, offset = 2);
 		console.log(slice_audios.items, all_audios.items.slice(2, 12));
-		assert.equal(slice_audios.items, all_audios.items.slice(2, 12));
+		for (var i = slice_audios.length - 1; i >= 0; i--) {
+			assert.equal(slice_audios[i], all_audios.items.slice(2, 12)[i]);
+		}
 	})
 
 });
