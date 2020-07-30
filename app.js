@@ -52,17 +52,18 @@ function sort() {
 
 async function check_if_logged() {
 	const vk_access_token = document.cookie;
-	var data = await get_vk_data(vk_access_token, count = start_count, offset = 0, need_user = 1);
-	console.log(data);
-	if (data.count == 0) {
+	try {
+		var data = await get_vk_data(vk_access_token, count = start_count, offset = 0, need_user = 1);
+	} catch(error) {
 		$('.logged-in').hide();
 		$('.not-logged-in').show();
-	} else {
-		$('.not-logged-in').hide();
-		$('.count').text(data.count);
-		$('.logged-in').show();
-		load_audios();
 	}
+	$('.not-logged-in').hide();
+	$('.count').text(data.count);
+	$('.logged-in').show();
+	push_list_audio(items);
+	write_audios(list_audio.slice(0), false);
+	load_audios();
 }
 
 function push_list_audio(items) {
