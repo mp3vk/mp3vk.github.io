@@ -62,7 +62,7 @@ async function check_if_logged() {
 	}
 	$('.not-logged-in').hide();
 	$('.logged-in').show();
-	push_list_audio(items);
+	push_list_audio(data.items);
 	write_audios(list_audio.slice(0), false);
 	load_audios();
 }
