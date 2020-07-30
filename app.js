@@ -58,6 +58,7 @@ async function check_if_logged() {
 	} catch(error) {
 		$('.logged-in').hide();
 		$('.not-logged-in').show();
+		return;
 	}
 	$('.not-logged-in').hide();
 	$('.logged-in').show();
