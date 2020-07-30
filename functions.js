@@ -36,6 +36,7 @@ function time_like_vk(seconds) {
 			numeral = seconds;
 			seconds = 0;
 		}
+		console.log(numeral);
 		times.push(numeral);
 	}
 	if (times.length == 1) {
