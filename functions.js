@@ -3,14 +3,12 @@ async function get_vk_data(access_token, count = 0, offset = 0, need_user = 0) {
 	var data = await $.ajax({
 		url: url,
 		dataType: "jsonp"});
-	data = data.response;
-	assert.typeOf(data.name, 'string');
-		assert.typeOf(data.count, 'int');
-		assert.typeOf(data.items, 'array');
-
+	var ret = {};
+	ret.items = data.response.items;
+	ret.count = data.response.count;
 	if (need_user) {
-		data.name = data.items[0].name;
-		data.items.shift();
+		ret.name = ret.items[0].name;
+		ret.items.shift();
 	}
-	return data;
+	return ret;
 }

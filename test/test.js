@@ -19,7 +19,7 @@ describe("get data from vk", function() {
 
 	});
 	it("Получить несколько аудиозаписей", async function() {
-		var all_audios = await get_vk_data(vk_acess_token);
+		var all_audios = await get_vk_data(vk_access_token);
 		var slice_audios = await get_vk_data(vk_acess_token, count = 10, offset = 2);
 		assert.equal(slice_audios.items, all_audios.items.slice(2, 12));
 	})
