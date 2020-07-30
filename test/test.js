@@ -3,7 +3,7 @@ describe("get data from vk", function() {
 	it("Получить все аудиозаписи с именем пользователя", async function() {
 		var data = await get_vk_data(vk_access_token, count = 0, offset = 0, need_user = 1);
 		assert.typeOf(data.name, 'string');
-		assert.typeOf(data.count, 'int');
+		assert.typeOf(data.count, 'number');
 		assert.typeOf(data.items, 'array');
 		assert.typeOf(data.asdf, 'undefined');
 		assert.isNotEmpty(data.items);
@@ -21,6 +21,7 @@ describe("get data from vk", function() {
 	it("Получить несколько аудиозаписей", async function() {
 		var all_audios = await get_vk_data(vk_access_token);
 		var slice_audios = await get_vk_data(vk_access_token, count = 10, offset = 2);
+		console.log(slice_audios.items, all_audios.items.slice(2, 12));
 		assert.equal(slice_audios.items, all_audios.items.slice(2, 12));
 	})
 

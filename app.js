@@ -56,6 +56,7 @@ async function check_if_logged() {
 		var data = await get_vk_data(vk_access_token, count = start_count, offset = 0, need_user = 1);
 		$('.count').text(data.count);
 	} catch(error) {
+		console.log(error)
 		$('.logged-in').hide();
 		$('.not-logged-in').show();
 		return;
