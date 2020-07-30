@@ -50,7 +50,7 @@ function sort() {
 }
 
 
-function check_if_logged() {
+async function check_if_logged() {
 	const access_token = document.cookie;
 	var data = await get_vk_data(vk_acess_token, count = start_count, offset = 0, need_user = 1);
 	console.log(data);
