@@ -15,7 +15,7 @@ describe("get data from vk", function() {
 			assert.typeOf(item.asdf, 'undefined');
 			assert.typeOf(item.duration, 'number');
 			assert.typeOf(item.date, 'number');
-		}
+		});
 
 	});
 	it("Получить несколько аудиозаписей", async function() {
