@@ -52,18 +52,17 @@ function sort() {
 
 function check_if_logged() {
 	const access_token = document.cookie;
-	load_more_and_write(access_token, start_count, 0, function(count) {
-		console.log(count);
-		if (count == 0) {
-			$('.logged-in').hide();
-			$('.not-logged-in').show();
-		} else {
-			$('.not-logged-in').hide();
-			$('.count').text(count);
-			$('.logged-in').show();
-			load_audios();
-		}
-	}, need_user=1);
+	var data = await get_vk_data(vk_acess_token, count = start_count, offset = 0, need_user = 1);
+	console.log(data);
+	if (data.count == 0) {
+		$('.logged-in').hide();
+		$('.not-logged-in').show();
+	} else {
+		$('.not-logged-in').hide();
+		$('.count').text(data.count);
+		$('.logged-in').show();
+		load_audios();
+	}
 }
 
 function push_list_audio(items) {
