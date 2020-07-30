@@ -54,12 +54,12 @@ async function check_if_logged() {
 	const vk_access_token = document.cookie;
 	try {
 		var data = await get_vk_data(vk_access_token, count = start_count, offset = 0, need_user = 1);
+		$('.count').text(data.count);
 	} catch(error) {
 		$('.logged-in').hide();
 		$('.not-logged-in').show();
 	}
 	$('.not-logged-in').hide();
-	$('.count').text(data.count);
 	$('.logged-in').show();
 	push_list_audio(items);
 	write_audios(list_audio.slice(0), false);
