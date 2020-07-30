@@ -1,7 +1,7 @@
-const vk_acess_token = document.cookie;
+const vk_access_token = document.cookie;
 describe("get data from vk", function() {
 	it("Получить все аудиозаписи с именем пользователя", async function() {
-		var data = await get_vk_data(vk_acess_token, count = 0, offset = 0, need_user = 1);
+		var data = await get_vk_data(vk_access_token, count = 0, offset = 0, need_user = 1);
 		assert.typeOf(data.name, 'string');
 		assert.typeOf(data.count, 'int');
 		assert.typeOf(data.items, 'array');
