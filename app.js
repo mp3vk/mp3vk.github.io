@@ -155,27 +155,6 @@ function write_audios(items, reverse) {
 	})
 }
 
-function time_like_vk(seconds) {
-	var times = [];
-	while (seconds) {
-		var numeral = 0;
-		if (times.length < 4) {
-			numeral = seconds % 60;
-			seconds = Math.floor(seconds / 60);
-			if ((numeral < 10) & (seconds != 0)) {
-				numeral = '0' + numeral;
-			}
-		} else {
-			numeral = seconds;
-			seconds = 0;
-		}
-		times.push(numeral);
-	}
-	if (times.length == 1) {
-		times.push(0);
-	}
-	return times.reverse().join(':')
-}
 
 function render_audio(audio){
 var right_button = '';

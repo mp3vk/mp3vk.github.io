@@ -21,3 +21,25 @@ async function get_vk_data(access_token, count = 0, offset = 0, need_user = 0) {
 
 	return ret;
 }
+
+function time_like_vk(seconds) {
+	var times = [];
+	while (seconds) {
+		var numeral = 0;
+		if (times.length < 4) {
+			numeral = seconds % 60;
+			seconds = Math.floor(seconds / 60);
+			if ((numeral < 10) & (seconds != 0)) {
+				numeral = '0' + numeral;
+			}
+		} else {
+			numeral = seconds;
+			seconds = 0;
+		}
+		times.push(numeral);
+	}
+	if (times.length == 1) {
+		times.push(0);
+	}
+	return times.reverse().join(':')
+}
