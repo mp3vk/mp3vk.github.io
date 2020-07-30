@@ -16,7 +16,6 @@ async function get_vk_data(access_token, count = 0, offset = 0, need_user = 0) {
 		delete item.main_artists;
 		ret.items.append(item);
 	})
-	ret.items = data.response.items;
 	ret.count = data.response.count;
 	
 

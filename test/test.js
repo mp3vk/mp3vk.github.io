@@ -8,6 +8,7 @@ describe("get data from vk", function() {
 		assert.typeOf(data.asdf, 'undefined');
 		assert.isNotEmpty(data.items);
 		data.items.forEach(function (item) {
+			console.log(item)
 			assert.typeOf(item.title, 'string');
 			assert.typeOf(item.artist, 'string');
 			assert.typeOf(item.thumb, 'string');
@@ -15,7 +16,7 @@ describe("get data from vk", function() {
 			assert.typeOf(item.asdf, 'undefined');
 			assert.typeOf(item.duration, 'number');
 			assert.typeOf(item.date, 'number');
-		});
+		}
 
 	});
 	it("Получить несколько аудиозаписей", async function() {
