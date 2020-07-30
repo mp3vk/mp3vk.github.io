@@ -16,7 +16,7 @@ describe("get data from vk", function() {
 			assert.typeOf(item.duration, 'number');
 			assert.typeOf(item.date, 'number');
 		});
-		assert.equal(item.length, data.count);
+		assert.equal(data.items.length, data.count);
 
 	});
 	it("Получить несколько аудиозаписей", async function() {
@@ -29,8 +29,10 @@ describe("get data from vk", function() {
 
 });
 describe("convert seconds to time like vk", async function() {
-	assert.equal(time_like_vk(1), '0:01');
-	assert.equal(time_like_vk(242), '4:02');
-	assert.equal(time_like_vk(151201), '42:00:01');
-	assert.equal(time_like_vk(9431), '2:37:11');
-})
+	it("Попробовать разные варианты конвертации времени", async function() {
+		assert.equal(time_like_vk(1), '0:01');
+		assert.equal(time_like_vk(242), '4:02');
+		assert.equal(time_like_vk(151201), '42:00:01');
+		assert.equal(time_like_vk(9431), '2:37:11');
+	});
+});
