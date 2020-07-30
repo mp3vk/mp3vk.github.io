@@ -40,6 +40,8 @@ function time_like_vk(seconds) {
 		times.push(numeral);
 	}
 	if (times.length == 1) {
+		if (times[0] < 10) {
+			times[0] = '0' + times[0];
 		times.push(0);
 	}
 	return times.reverse().join(':')
