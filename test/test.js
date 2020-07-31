@@ -34,5 +34,6 @@ describe("convert seconds to time like vk", async function() {
 		assert.equal(time_like_vk(242), '4:02');
 		assert.equal(time_like_vk(151201), '42:00:01');
 		assert.equal(time_like_vk(9431), '2:37:11');
+		assert.equal(time_like_vk(512281), '142:18:01');
 	});
 });
