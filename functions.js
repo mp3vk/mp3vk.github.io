@@ -29,7 +29,7 @@ function time_like_vk(seconds) {
 		if (times.length < 4) {
 			numeral = seconds % 60;
 			seconds = Math.floor(seconds / 60);
-			if ((numeral < 10) & (seconds != 0)) {
+			if ((numeral < 10) & ((times.length == 1) | (seconds != 0))) {
 				numeral = '0' + numeral;
 			}
 		} else {
@@ -40,9 +40,7 @@ function time_like_vk(seconds) {
 		times.push(numeral);
 	}
 	if (times.length == 1) {
-		if (times[0] < 10) {
-			times[0] = '0' + times[0];
 		times.push(0);
 	}
-	return times.reverse().join(':')
+		return times.reverse().join(':')
 }
